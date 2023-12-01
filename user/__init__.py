@@ -7,7 +7,7 @@ class LoginUserValidator(BaseModel):
 class RegisterUserValidator(BaseModel):
     name: str
     surname: str
-    email:str
+    email: str
     phone_number: str
     city: str
     password: str

@@ -8,7 +8,10 @@ user_router = APIRouter(prefix='/user', tags=['control users'])
 
 @user_router.post('/login')
 async def login_user(data: LoginUserValidator):
-    result = login_user_db(**data.model_dump())
+
+    model = data.model_dump()
+
+    result = login_user_db(**model)
 
     return {'message': result}
 
@@ -16,13 +19,14 @@ async def login_user(data: LoginUserValidator):
 
 @user_router.post('/register')
 async def register_user(data: RegisterUserValidator):
-    result = register_user_db(**data.model_dump())
+
+    model = data.model_dump()
+
+    result = register_user_db(**model)
+
+    return result
 
 
-    if result:
-        return {'message': result}
-    else:
-        return {'message': 'already at list'}
 
 
 @user_router.get('/get_user')
@@ -39,10 +43,10 @@ async def get_user(user_id: int = 0):
 async def delete_user(user_id: int):
 
     result = delete_user_db(user_id)
-
-    return {'message': result}
-
-    return {'message': "successfully deleted"}
+    if result:
+        return {'message': result}
+    else:
+        return {'message': "Wrong"}
 
 
 @user_router.put('/edit')

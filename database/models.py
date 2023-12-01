@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 
 from database import Base
+
 
 # creating table for
 class User(Base):
@@ -9,22 +10,26 @@ class User(Base):
     user_id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
     last_name = Column(String)
-    email = Column(String, unique=True)
-    phone_number = Column(String, unique=True)
+    email = Column(String)
+    phone_number = Column(String)
     city = Column(String)
     password = Column(String, nullable=False)
     reg_date = Column(DateTime)
 
-# Table card of users
-class UserArticle(Base):
-    __tablename__ = 'cards'
-    article_id = Column(Integer, primary_key=True, autoincrement=True)
+
+class Post(Base):
+    __tablename__ = 'posts'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+
     user_id = Column(Integer, ForeignKey('users.user_id'))
-    article_number = Column(Integer, nullable=False)
-    exp_date = Column(Integer, nullable=False)
-    article_name = Column(String)
 
+    post_name = Column(String)
 
+    post_description = Column(String)
 
+    exp_date = Column(DateTime)
+
+    user_fk = relationship(User, lazy='subquery')
 
 
