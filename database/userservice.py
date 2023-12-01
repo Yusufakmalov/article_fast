@@ -46,6 +46,21 @@ def get_all_users_db():
 def get_exact_user_db(user_id):
     db = next(get_db())
 
-    exact_user = db.query(User).filter_by(id=user_id).first()
+    exact_user = db.query(User).filter_by(user_id=user_id).first()
 
     return exact_user
+
+def delete_user_db(user_id):
+    db = next(get_db())
+
+    delete_user = db.query(User).filter_by(user_id=user_id).first()
+
+    return delete_user
+
+
+def edit_user_db(user_id):
+    db = next(get_db())
+
+    edit_user = db.query(User).filter_by(user_id=user_id).first()
+
+    return edit_user
